@@ -21,6 +21,5 @@ int main(void)
 		else
 			std::cout << "Authorized commands : ADD, SEARCH and EXIT" << std::endl;
 	}
-	//ya t il vraiment besoin de clear str ?/
 	return (0);
 }

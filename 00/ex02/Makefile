@@ -1,14 +1,12 @@
-SRCS = sources/Contact.cpp  \
-		sources/PhoneBook.cpp  \
-		sources/main.cpp
+SRCS = sources/tests.cpp  \
+		sources/Account.cpp
 
-OBJS = objets/Contact.o  \
-		objets/PhoneBook.o  \
-		objets/main.o
+OBJS = objets/tests.o  \
+		objets/Account.o
 
-FLAGS = -Wall -Wextra -Werror -std=c++98 -g3
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = phonebook
+NAME = log
 
 all: $(NAME)
 $(NAME): $(OBJS)
