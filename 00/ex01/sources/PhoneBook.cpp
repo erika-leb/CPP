@@ -36,12 +36,6 @@ void	PhoneBook::printContactLine(void)
 			break ;
 		std::cout << "Invalid index. Contact index ?" << std::endl;
 	}
-	// std::getline(std::cin, s);
-	// while (s.size() != 1 || s[0] < '1' || s[0] > '8')
-	// {
-	// 	std::cout << "Invalid index. Contact index ?" << std::endl;
-	// 	std::getline(std::cin, s);
-	// }
 	index = s[0] - '1';
 	if (_arr[index].getFirstName() == "")
 	{
@@ -109,7 +103,10 @@ bool PhoneBook::isOnlySpace(std::string str)
 		if (!(std::isspace(str[i])))
 			f = 1;
 		if (str[i] >= 9 && str[i] <= 13)
+		{
 			f = 2;
+			break ;
+		}
 		i++;
 	}
 	if (f == 0 || f == 2)
@@ -126,11 +123,7 @@ int		PhoneBook::getElement(std::string s, std::string s1)
 	while (1)
 	{
 		if (!std::getline(std::cin, str))
-		{
-			std::cout << "la." << std::endl;
-			str.clear();
 			return (1);
-		}
 		if (str.empty() || isOnlySpace(str) == true || str.find('\033') != std::string::npos || (s == "pn" && isNum(str) == false))
 			std::cout << "Input not accepted.Try again." << std::endl;
 		else
@@ -148,32 +141,7 @@ int		PhoneBook::getElement(std::string s, std::string s1)
 			return (0);
 		}
 	}
-	std::cout << "ici." << std::endl;
-	str.clear();
 	return (1);
-
-	// std::cout << s1 << std::endl;
-	// std::getline(std::cin, str);
-	// if (std::cin.eof())
-	// 	return;
-	// while (str.empty() || isOnlySpace(str) == true || str.find('\033') != std::string::npos || (s == "pn" && isNum(str) == false))
-	// {
-	// 	std::cout << "Input not accepted.Try again." << std::endl;
-	// 	std::getline(std::cin, str);
-	// 	if (std::cin.eof())
-	// 		return;
-	// }
-	// if (s == "fn")
-	// 	this->_arr[_index % 8].setFirstName(str);
-	// if (s == "ln")
-	// 	this->_arr[_index % 8].setLastName(str);
-	// if (s == "nn")
-	// 	this->_arr[_index % 8].setNickName(str);
-	// if (s == "pn")
-	// 	this->_arr[_index % 8].setPhoneNumber(str);
-	// if (s == "ds")
-	// 	this->_arr[_index % 8].setDarkSecret(str);
-	// return ;
 }
 
 void	PhoneBook::addContact()
