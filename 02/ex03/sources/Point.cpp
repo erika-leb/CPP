@@ -1,28 +1,37 @@
-# include "Point.hpp"
+#include "Point.hpp"
 
-Point::Point(void) : _y(0), _x(0)
+Point::Point() : _x(0), _y(0)
 {
-	return ;
 }
-Point::Point(int x, int y) : _y(y), _x(x)
+
+Point::Point(int x, int y) : _x(x), _y(y)
 {
-	return ;
 }
-Point::Point(Point const &src) : _x(src._x), _y(src._y)
+
+Point::Point(float x, float y) : _x(x), _y(y)
 {
-	return ;
 }
-Point &Point::operator=(Point const &src)
+
+Point::Point(const Point &src) : _x(src._x), _y(src._y)
 {
-	if (this != &src)
-	{
-		this->_x = src._x;
-		this->_y = src._y;
-	}
+	// *this = src;
+}
+Point::~Point()
+{
+}
+Point &Point::operator=(const Point &rhs)
+{
+	(void)rhs;
+	if (this != &rhs)
+		std::cout << "Assignment operator called — but Point has const members, so nothing can be assigned." << std::endl;
 	return (*this);
 }
 
-Point::~Point(void)
+const Fixed &Point::getX(void) const
 {
-	return ;
+	return(_x);
+}
+const Fixed &Point::getY(void) const
+{
+	return (_y);
 }

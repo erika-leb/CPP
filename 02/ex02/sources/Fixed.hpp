@@ -4,45 +4,48 @@
 # include <iostream>
 # include <cmath>
 
-class Fixed {
-
-	public:
+class Fixed
+{
+	public :
 		Fixed(void);
 		Fixed(const int n);
-		Fixed(const float n);
+		Fixed(const float f);
 		Fixed(Fixed const &src);
 		~Fixed(void);
 
 		Fixed &operator=(Fixed const &src);
-		Fixed operator+(Fixed const &src);
-		Fixed operator-(Fixed const &src);
-		Fixed operator*(Fixed const &src);
-		Fixed operator/(Fixed const &src);
-		bool  operator<(Fixed const &src);
-		bool  operator>(Fixed const &src);
-		bool  operator<=(Fixed const &src);
-		bool  operator>=(Fixed const &src);
-		bool  operator==(Fixed const &src);
-		bool  operator!=(Fixed const &src);
-		Fixed  operator++(int);
-		Fixed  &operator++(void);
-		Fixed  operator--(int);
-		Fixed  &operator--(void);
-		static Fixed const &min(Fixed const &n1, Fixed const &n2);
-		static Fixed &min(Fixed &n1, Fixed &n2);
-		static Fixed const &max(Fixed const &n1, Fixed const &n2);
-		static Fixed &max(Fixed &n1, Fixed &n2);
+		Fixed operator+(Fixed const &rhs);
+		Fixed operator-(Fixed const &rhs);
+		Fixed operator*(Fixed const &rhs);
+		Fixed operator/(Fixed const &rhs);
+
+		bool operator<(Fixed const &rhs) const;
+		bool operator>(Fixed const &rhs) const;
+		bool operator<=(Fixed const &rhs) const;
+		bool operator>=(Fixed const &rhs) const;
+		bool operator==(Fixed const &rhs) const;
+		bool operator!=(Fixed const &rhs) const;
+
+		Fixed &operator++(void);
+		Fixed &operator--(void);
+		Fixed operator++(int);
+		Fixed operator--(int);
+
 		int getRawBits( void ) const;
 		void setRawBits( int const raw );
 		float toFloat( void ) const;
 		int toInt( void ) const;
 
-	private:
-		int					_n;
-		static const int	_bit = 8;  //est-ce bien de faire ca ?
+		static Fixed &min(Fixed &n1, Fixed &n2);
+		static Fixed &max(Fixed &n1, Fixed &n2);
+		static const Fixed &min(const Fixed &n1, const Fixed &n2);
+		static const Fixed &max(const Fixed &n1, const Fixed &n2);
 
+	private:
+		int _n;
+		static const int _bit = 8;
 } ;
 
-std::ostream& operator<<(std::ostream& os, const Fixed &copy);
+std::ostream &operator<<(std::ostream &os, const Fixed &n);
 
 #endif

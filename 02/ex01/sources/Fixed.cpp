@@ -3,72 +3,61 @@
 Fixed::Fixed(void) : _n(0)
 {
 	std::cout << "Default constructor called" << std::endl;
-	return ;
 }
 
 Fixed::Fixed(const int n) : _n(n << _bit)
 {
 	std::cout << "Int constructor called" << std::endl;
-	return ;
 }
-
-Fixed::Fixed(const float n) : _n(roundf(n * (1 << _bit)))
+Fixed::Fixed(const float f) : _n(static_cast<int>(roundf(f * (1 << _bit))))
 {
 	std::cout << "Float constructor called" << std::endl;
-	return ;
 }
 
+Fixed::Fixed(Fixed const &src)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = src;
+}
 Fixed::~Fixed(void)
 {
 	std::cout << "Destructor called" << std::endl;
-	return ;
-}
-Fixed::Fixed(Fixed const  &src)
-{
-	std::cout << "Copy constructor called" << std::endl;
-	*this=src;
-	return ;
 }
 
-Fixed &Fixed::operator=(const Fixed &rhs)
+Fixed &Fixed::operator=(Fixed const &src)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
-	if (this != &rhs)
+	if (this != &src)
 	{
-		this->_n = rhs.getRawBits();
+		std::cout << "Copy assignment operator called" << std::endl;
+		_n = src._n;
 	}
 	return (*this);
 }
 
-int		Fixed::getRawBits( void ) const
+int Fixed::getRawBits( void ) const
 {
-	// std::cout << "getRawBits member function called" << std::endl;
+	std::cout << "getRawBits member function called" << std::endl;
 	return (_n);
 }
 
-
-void	Fixed::setRawBits( int const raw )
+void Fixed::setRawBits( int const raw )
 {
-	// std::cout << "setRawBits member function called" << std::endl;
-	this->_n = raw;
-	return ;
+	std::cout << "setRawBits member function called" << std::endl;
+	_n = raw;
 }
 
-float	Fixed::toFloat( void ) const
+float Fixed::toFloat( void ) const
 {
-	return ((static_cast<float>(this->getRawBits()) / (1 << _bit)));
+	return (static_cast<float>(_n) / (1 << _bit));
 }
 
-int		Fixed::toInt( void ) const
+int Fixed::toInt( void ) const
 {
-	return (this->getRawBits() / (1 << _bit	));
+	return (_n / ( 1 << _bit));
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed &copy)
+std::ostream &operator<<(std::ostream &os, const Fixed &n)
 {
-	os << copy.toFloat();//On injecte dans os le nombre qui a ete retransforme
-	//dans sa valeur d'origine
+	os << n.toFloat();
 	return (os);
 }
-
-

@@ -1,12 +1,14 @@
 SRCS = sources/main.cpp  \
-		sources/Fixed.cpp
+		sources/Fixed.cpp \
+		sources/Point.cpp \
+		sources/bsp.cpp
 
 OBJS = $(SRCS:sources/%.cpp=objets/%.o)
 DEPS = $(OBJS:.o=.d)
 
 FLAGS = -Wall -Wextra -Werror -ggdb -std=c++98 -MMD -MP
 
-NAME = fixed
+NAME = bsp
 
 all: $(NAME)
 $(NAME): $(OBJS)
