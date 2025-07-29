@@ -4,7 +4,7 @@
 int main()
 {
 	// Animal an; //tester si la classe est bien abstraite
-	AAnimal* animals[10];
+	Animal* animals[10];
 	for (int i = 0; i < 5; ++i)
 		animals[i] = new Dog();
 	for (int i = 5; i < 10; ++i)
@@ -17,5 +17,8 @@ int main()
 	// nettoyage
 	for (int i = 0; i < 10; ++i)
 		delete animals[i];
+
+	// Animal* a = new Animal();
+
 	return(0);
 }

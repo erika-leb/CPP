@@ -11,11 +11,12 @@ class Brain {
 		~Brain();
 		Brain &operator=(const Brain &rhs);
 
-		std::string getIdea(const int i) const;
-		void setIdea(const int i, const std::string idea);
+		void setIdea(int idx, std::string idea);
+		std::string getIdea(int idx) const;
 
-		private:
-			std::string ideas[100];
+	private:
+		std::string _ideas[100];
+
 } ;
 
 #endif
