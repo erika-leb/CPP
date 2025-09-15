@@ -4,32 +4,32 @@
 
 int main()
 {
-	std::cout << "-----ANIMAL TESTS------" <<std::endl<<std::endl;
+	std::cout << "-----ANIMAL TESTS------" <<std::endl;
 	const Animal* meta = new Animal();
+	const Animal* j = new Dog(meta);
 	const Animal* i = new Cat();
-	const Animal* j = new Dog();
 	const Animal* m = new Dog();
-	std::cout << i->getType() << " " << std::endl;
 	std::cout << j->getType() << " " << std::endl;
+	std::cout << i->getType() << " " << std::endl;
 	std::cout << m->getType() << " " << std::endl;
-	meta->makeSound();
 	i->makeSound(); //will output the cat sound!
 	j->makeSound();
+	meta->makeSound();
 	m->makeSound();
 	delete meta;
 	delete j;
 	delete i;
 	delete m;
-	std::cout <<std::endl << "-----WRONG ANIMAL TESTS------" <<std::endl<<std::endl;
+	std::cout << "-----ANIMAL TESTS------" <<std::endl;
 	const WrongAnimal *wrong = new WrongAnimal();
 	const WrongCat *k = new WrongCat();
 	const WrongAnimal* n = new WrongCat();
 	std::cout << wrong->getType() << " " << std::endl;
 	std::cout << k->getType() << " " << std::endl;
 	std::cout << n->getType() << " " << std::endl;
+	k->makeSound(); //will not output the cat sound!
 	wrong->makeSound();
-	k->makeSound();
-	n->makeSound(); //ne sort pas le bruit du chat
+	n->makeSound();
 	delete wrong;
 	delete k;
 	delete n;

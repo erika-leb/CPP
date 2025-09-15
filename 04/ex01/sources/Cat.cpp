@@ -1,8 +1,8 @@
 #include "Cat.hpp"
 
-Cat::Cat() : Animal ("Cat")
+Cat::Cat() : Animal("Cat")
 {
-	_brain = new Brain();
+	_brain = new Brain;
 	std::cout << "Cat constructor called" <<std::endl;
 }
 
@@ -11,36 +11,41 @@ Cat::Cat(const Cat &src) : Animal(src)
 	_brain = new Brain(*src._brain);
 	std::cout << "Cat copy constructor called" <<std::endl;
 }
-
 Cat::~Cat()
 {
 	delete _brain;
 	std::cout << "Cat desctructor called" << std::endl;
 }
-
 Cat &Cat::operator=(const Cat &rhs)
 {
-	std::cout << "Cat assignment operator called" << std::endl;
 	if (this != &rhs)
 	{
-		_type = rhs._type;
 		delete _brain;
 		_brain = new Brain(*rhs._brain);
+		_type = rhs._type;
+		std::cout << "Cat assignment operator called for the same instance" << std::endl;
 	}
+	else
+		std::cout << "Cat assignment operator called for the same instance" << std::endl;
 	return (*this);
 }
 
-void Cat::makeSound(void) const
+void Cat::makeSound() const
 {
-	std::cout << "miaou" <<std::endl;
+	std::cout << "meeow" << std::endl;
 }
 
-void Cat::setIdea(int idx, std::string idea)
+void Cat::setIdeas(const int i, const std::string idea)
 {
-	_brain->setIdea(idx, idea);
+	_brain->setIdea(i, idea);
 }
 
-std::string Cat::getIdea(int idx) const
+std::string Cat::getIdeas(const int i) const
 {
-	return (_brain->getIdea(idx));
+	return (_brain->getIdea(i));
+}
+
+void Cat::printBrain(void)
+{
+	std::cout << "address of brain: " << &this->_brain << std::endl;
 }

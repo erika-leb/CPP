@@ -1,63 +1,25 @@
 #include "MateriaSource.hpp"
+#include "Character.hpp"
 #include "Ice.hpp"
 #include "Cure.hpp"
-#include "Character.hpp"
 
-int main(void)
+int main()
 {
-    std::cout << "=== Initialisation de la MateriaSource ===" << std::endl;
-    IMateriaSource* source = new MateriaSource();
-
-    std::cout << "\n=== Apprentissage des Materias ===" << std::endl;
-    source->learnMateria(new Cure());
-    source->learnMateria(new Ice());
-    source->learnMateria(new Cure());
-    source->learnMateria(new Ice());
-    source->learnMateria(new Cure()); // devrait échouer (5e essai)
-
-    std::cout << "\n=== Création du personnage (hero) ===" << std::endl;
-    ICharacter* hero = new Character("hero");
-
-    std::cout << "\n=== Création et équipement des Materias ===" << std::endl;
-    AMateria* materia;
-    materia = source->createMateria("cure");
-    hero->equip(materia);
-    materia = source->createMateria("ice");
-    hero->equip(materia);
-    materia = source->createMateria("cure");
-    hero->equip(materia);
-    materia = source->createMateria("ice");
-    hero->equip(materia);
-
-    std::cout << "\n=== Tentative d'équipement supplémentaire ===" << std::endl;
-    materia = source->createMateria("cure");
-    hero->equip(materia); // devrait échouer car inventaire plein
-
-    std::cout << "\n=== Création d'un autre personnage (enemy) ===" << std::endl;
-    ICharacter* enemy = new Character("enemy");
-    hero->use(0, *enemy);
-    hero->use(1, *enemy);
-    hero->use(10, *enemy); // index invalide
-
-    std::cout << "\n=== Test du constructeur de copie ===" << std::endl;
-    Character copyHero(*(Character*)hero); // clone de hero
-    copyHero.use(0, *enemy);
-    copyHero.use(1, *enemy);
-
-    std::cout << "\n=== Test de l'opérateur d'assignation ===" << std::endl;
-    Character anotherHero;
-    anotherHero = *(Character*)hero;
-    anotherHero.use(2, *enemy);
-
-    std::cout << "\n=== On vide l'inventaire du héros ===" << std::endl;
-    for (int i = 0; i < 4; i++)
-        hero->unequip(i);
-    hero->unequip(2); // slot déjà vide
-
-    std::cout << "\n=== Fin du programme ===" << std::endl;
-    delete enemy;
-    delete hero;
-    delete source;
-
-    return 0;
+	IMateriaSource* src = new MateriaSource();
+	src->learnMateria(new Ice());
+	src->learnMateria(new Cure());
+	ICharacter* me = new Character("me");
+	AMateria* tmp;
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp); //ici
+	ICharacter* bob = new Character("bob");
+	me->use(0, *bob);
+	me->use(1, *bob);
+	std::cout << "como1 " << " *" <<std::endl;
+	delete bob;
+	delete me;
+	delete src;
+	return 0;
 }

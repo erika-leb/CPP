@@ -1,79 +1,80 @@
 #include "MateriaSource.hpp"
-#include "AMateria.hpp"
 
 MateriaSource::MateriaSource()
 {
-    for (int i = 0; i < 4; i++)
-        _inv[i] = NULL;
-    std::cout << "MateriaSource constructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		_memory[i] = NULL;
+	std::cout << "default MateriaSource constructor called" << std::endl;
 }
+
 MateriaSource::MateriaSource(const MateriaSource &src)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (src._inv[i])
-            _inv[i] = src._inv[i]->clone();
-        else
-            _inv[i] = NULL;
-    }
-    std::cout << "MateriaSource copy constructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		if (src._memory[i])
+			_memory[i] = src._memory[i]->clone();
+		else
+			_memory[i] = NULL;
+	}
+	std::cout << "copy MateriaSource constructor called" << std::endl;
 }
 
 MateriaSource::~MateriaSource()
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (_inv[i])
-        {
-            delete _inv[i];
-            _inv[i] = NULL;
-        }
-    }
-    std::cout << "MateriaSource destructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		std::cout << "hello1 " << " *" <<std::endl;
+		if (_memory[i])
+		{
+			std::cout << _memory[i] << std::endl;
+			std::cout << "hola51 " << " *" <<std::endl;
+			delete _memory[i];
+			_memory[i] = NULL;
+			std::cout << "hola122 " << " *" <<std::endl;
+		}
+		std::cout << "hola12 " << " *" <<std::endl;
+	}
+	std::cout << "hola1 " << " *" <<std::endl;
+	std::cout << "MateriaSource destructor called" << std::endl;
 }
 
-const MateriaSource &MateriaSource::operator=(const MateriaSource &rhs)
+MateriaSource &MateriaSource::operator=(const MateriaSource &rhs)
 {
-    std::cout << "MateriaSource constructor called" << std::endl;
-    if (this != &rhs)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            if (_inv[i])
-            {
-                delete _inv[i];
-                _inv[i] = NULL;
-            }
-            if (rhs._inv[i])
-                _inv[i] = rhs._inv[i]->clone();
-            else
-                _inv[i] = NULL;
-        }
-    }
-    return (*this);
+	if (this != &rhs)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (_memory[i])
+				delete _memory[i];
+			_memory[i] = rhs._memory[i]->clone();
+		}
+		std::cout << "MateriaSource assignment operator called" << std::endl;
+	}
+	else
+		std::cout << "AMateriaSource assignment operator called for the same instance" << std::endl;
+	return (*this);
 }
 
 void MateriaSource::learnMateria(AMateria*m)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (!_inv[i])
-        {
-            _inv[i] = m;
-            return ;
-        }
-    }
-    std::cout << "no room left for new materia. Materia destroyed" << std::endl;
-    delete m;
+	for (int i = 0; i < 4; i++)
+	{
+		if (!_memory[i])
+		{
+			std::cout << " MateriaSource adds " << m->getType() << " to its memory" << std::endl;
+			_memory[i] = m;
+		}
+	}
+	std::cout << "MateriaCourse cannot add any AMateria" << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (_inv[i] && type == _inv[i]->getType())
-            return (_inv[i]->clone());
-    }
-    std::cout << "Materia not found in inventory" << std::endl;
-    return NULL;
+	for(int i = 0; i < 4; i++)
+	{
+		if (type == _memory[i]->getType())
+			return (_memory[i]->clone());
+	}
+	std::cout << "Type not found in MateriaSource" << std::endl;
+	return (NULL);
 }

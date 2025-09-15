@@ -1,7 +1,7 @@
 NAME = test
 
 SRCS = ./sources/main.cpp \
-		./sources/Animal.cpp \
+		./sources/AAnimal.cpp \
 		./sources/Dog.cpp \
 		./sources/Cat.cpp \
 		./sources/Brain.cpp
