@@ -54,10 +54,32 @@ void PmergeMe::sort()
     //     algoSort(_vect);
     //     algoSort(_deq);
     pairing(_vect); //faudra faire pareil avec l'autre liste
+    mergeInsert(_vect);
     pairing(_deq);
+    mergeInsert(_deq);
     // moveBloc(_deq, 1, 1, 0);
     // moveBloc(_deq, 4, 5, 0);
 }
+
+int PmergeMe::jacobNb(int n)
+{
+    if (n == 0)
+        return (0);
+    else if (n == 1)
+        return (1);
+    else
+        return (jacobNb(n - 1) + 2 * jacobNb(n - 2));
+}
+
+void PmergeMe::insertPend(std::vector<int> &lst, std::vector<int> &pend)
+{
+}
+
+void PmergeMe::insertPend(std::deque<int> &lst, std::deque<int> &pend)
+{
+
+}
+
 
 void PmergeMe::print(int n) const
 {
@@ -100,3 +122,4 @@ void PmergeMe::print(int n) const
     else
         return;
 }
+
