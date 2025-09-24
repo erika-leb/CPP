@@ -194,28 +194,41 @@ class PmergeMe {
                         // std::cout << "kim et lstIT second ="  << lstIt->second<< std::endl;
                         if (lstIt->second != -1)
                         {
-                            std::cout << "yas et tmpIT =" << tmpIt->first << "lstIT first = " << lstIt->first<< std::endl;
+                            std::cout <<"yas et tmpIT =" << tmpIt->first << "; lstIT first = " << lstIt->first<< std::endl;
                             if (tmpIt->first <= lstIt->first)
                             {
-                                std::cout << "k = " << k << "; i = " << i << std::endl;
+                                // std::cout << "k = " << k << "; i = " << i << std::endl;
                                 // std::cout << "pair = " << _pairSize <<"; k = " << k << "; i= " << i << "; tmpit  = " << tmpIt->first << "; lstit  = " << lstIt->first << std::endl;
-                                typename T::iterator tmpitbegin = tmp.begin();
-                                typename T::iterator tmpitend = tmp.begin();
-                                typename T::iterator lstitpos = lst.begin();
-                                std::advance(tmpitbegin, (k - 1) * _pairSize);
-                                std::advance(tmpitend, k * _pairSize);
-                                std::advance(lstitpos, i * _pairSize);
-                                std::cout << "lstpos = " << lstitpos->first << std::endl;
-                                std::cout <<"tmpbegin = " << tmpitbegin->first << std::endl;
+                                // typename T::iterator tmpitbegin = tmp.begin();
+                                // typename T::iterator tmpitend = tmp.begin();
+                                typename T::iterator tmpitbegin =  tmpIt - (_pairSize - 1);
+                                typename T::iterator tmpitend = tmpIt + 1;
+                                typename T::iterator lstitpos;
+                                // if (lstIt != lst.begin() && _pairSize != 1)
+                                //     lstitpos = lstIt - 1;
+                                // else
+                                lstitpos = lstIt - (_pairSize - 1);
+                                // typename T::iterator lstitpos = lst.begin();
+                                // std::advance(tmpitbegin, (k - 1) * _pairSize);
+                                // std::advance(tmpitend, k * _pairSize);
+                                // std::advance(lstitpos, i * _pairSize);
+                                std::cout << "valeur de lst ou on va se positionner = " << lstitpos->first << std::endl;
+                                std::cout <<"valeur de debut de tmp a indroduire = " << tmpitbegin->first << std::endl;
                                 // std::cout << "; tmpend = " << tmpitend->first << std::endl;
                                 lst.insert(lstitpos, tmpitbegin, tmpitend);
                                 // lst.insert(lstIt - _pairSize, tmpIt - _pairSize, tmpIt + 1);
-                                
+                                // std::cerr << "eNTRE TEMPS= " << std::endl;
+                                // printPair(tmp);
+                                // printPair(lst);
+                                break ;
                                 i++;
-                                break;
                             }
                             k++;
+                            // std::cout << "on est sorti de cette boucle" << std::endl;
                         }
+                        // std::cout << "on est sorti de la boucle" << std::endl;
+                        // break ;
+                        // i++;
                     }
                     // on parcours la lst de 0 a ite->second pour comparer 
                     // on insere le bloc de (k - 1) * _pair a k * _pair - 1 inclus
