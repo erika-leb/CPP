@@ -25,10 +25,10 @@ class PmergeMe {
                 std::cerr << "probleme attention" << std::endl; // a enlever plus tard
                 return ;
             }
-            
+
             typename T::iterator itbegin = lst.begin();
             typename T::iterator itend = lst.begin();
-            
+
             std::advance(itbegin, begin);
             std::advance(itend, end + 1);
 
@@ -56,7 +56,7 @@ class PmergeMe {
                     if (lst[k * _pairSize - 1] > lst[(k + 1) * _pairSize - 1])
                     {
                         moveBloc(lst, k * _pairSize, (k + 1) * _pairSize - 1, (k - 1) * _pairSize);
-                    }    
+                    }
                     k += 2; //doute
                 }
                 _pairSize *= 2; // on passe a la pair de paire suivante
@@ -76,7 +76,7 @@ class PmergeMe {
             int k = 3;
             size_t i = 0;
             size_t j = 1;
-            
+
             std::cerr << "avant modif" << std::endl;
             printCont(pend);
             printCont(lst);
@@ -87,21 +87,21 @@ class PmergeMe {
 
                 std::advance(itbegin, (k - 1) * _pairSize); // pas sur
                 std::advance(itend, k * _pairSize); // pas sur
-                
+
                 pend.insert(pend.end(), itbegin, itend);
                 lst.erase(itbegin, itend);
-        
+
                 k++;
             }
             for(typename T::iterator it = pend.begin(); it != pend.end(); ++it)
             {
                 if (j * _pairSize - 1 == i)
                 {
-                    it->second = j + 1;            
+                    it->second = j + 1;
                     j++;
                 }
                 else
-                    it->second = -1;            
+                    it->second = -1;
                 i++;
             }
             j = 1;
@@ -181,21 +181,47 @@ class PmergeMe {
             std::cerr << "AVANT = " << std::endl;
             printPair(tmp);
             printPair(lst);
-            size_t k = 1;
-            size_t i = 0;
+			std::cerr << "r = " << _pairSize << std::endl;
+            // size_t k = 1;
+            // size_t i = 0;
             for (typename T::iterator tmpIt = tmp.begin(); tmpIt != tmp.end(); ++tmpIt)
             {
                 if (tmpIt->second != -1)
                 {
+					std::cout << "paul" << std::endl;
                     // for (typename T::iterator ite = lst.begin(); ite != lst.end(); ++ite)
-                    for (typename T::iterator lstIt = lst.begin(); lstIt != lst.end() && lstIt->second != tmpIt->second + 1; ++lstIt)
+                    for (typename T::iterator lstIt = lst.begin(); lstIt != lst.end() && lstIt->second != tmpIt->second + 2; ++lstIt)
                     {
-                        k = 1;
-                        // std::cout << "kim et lstIT second ="  << lstIt->second<< std::endl;
+                        // k = 1;
+                        std::cout << "kim et lstIT second ="  << lstIt->second<< std::endl;
                         if (lstIt->second != -1)
                         {
                             std::cout <<"yas et tmpIT =" << tmpIt->first << "; lstIT first = " << lstIt->first<< std::endl;
-                            if (tmpIt->first <= lstIt->first)
+                            if ((lstIt + 1) == lst.end() && tmpIt->first > lstIt->first)//si on est au dernier element de lst
+							{
+								typename T::iterator tmpitbegin =  tmpIt - (_pairSize - 1);
+                                typename T::iterator tmpitend = tmpIt + 1;
+                                typename T::iterator lstitpos;
+                                // if (lstIt != lst.begin() && _pairSize != 1)
+                                //     lstitpos = lstIt - 1;
+                                // else
+                                lstitpos = lst.end();
+                                // typename T::iterator lstitpos = lst.begin();
+                                // std::advance(tmpitbegin, (k - 1) * _pairSize);
+                                // std::advance(tmpitend, k * _pairSize);
+                                // std::advance(lstitpos, i * _pairSize);
+								std::cout << "adri" << std::endl;
+                                // std::cout << "el ; valeur de lst ou on va se positionner = " << lstitpos->first << std::endl;
+                                std::cout <<"el ;valeur de debut de tmp a indroduire = " << tmpitbegin->first << std::endl;
+                                // std::cout << "; tmpend = " << tmpitend->first << std::endl;
+                                lst.insert(lstitpos, tmpitbegin, tmpitend);
+                                // lst.insert(lstIt - _pairSize, tmpIt - _pairSize, tmpIt + 1);
+                                // std::cerr << "eNTRE TEMPS= " << std::endl;
+                                // printPair(tmp);
+                                // printPair(lst);
+                                break ;
+							}
+							else if (tmpIt->first <= lstIt->first)
                             {
                                 // std::cout << "k = " << k << "; i = " << i << std::endl;
                                 // std::cout << "pair = " << _pairSize <<"; k = " << k << "; i= " << i << "; tmpit  = " << tmpIt->first << "; lstit  = " << lstIt->first << std::endl;
@@ -221,16 +247,16 @@ class PmergeMe {
                                 // printPair(tmp);
                                 // printPair(lst);
                                 break ;
-                                i++;
+                                // i++;
                             }
-                            k++;
+                            // k++;
                             // std::cout << "on est sorti de cette boucle" << std::endl;
                         }
                         // std::cout << "on est sorti de la boucle" << std::endl;
                         // break ;
                         // i++;
                     }
-                    // on parcours la lst de 0 a ite->second pour comparer 
+                    // on parcours la lst de 0 a ite->second pour comparer
                     // on insere le bloc de (k - 1) * _pair a k * _pair - 1 inclus
                 }
             }
@@ -264,7 +290,7 @@ class PmergeMe {
             // }
             return (it);
         }
-        
+
         template <typename T>
         void insertPend(T &lst, T &pend)
         {
@@ -292,7 +318,7 @@ class PmergeMe {
             //         it = deleteBloc(it->second, tmp, pend);
             //         break;
             //     }
-            // } // ci dessous a decommenter 
+            // } // ci dessous a decommenter
 
             while (pend.empty() != true)
             {
@@ -354,12 +380,14 @@ class PmergeMe {
             int f = 0;
             // std::cout << "j0  = " << jacobNb(0) << std::endl;
             // std::cout << "dishes "
-            _pairSize /= 2; //pour le premier on est a 8
+            // _pairSize /= 2; //pour le premier on est a 8
+			std::cout << "r en debut de deuxieme partie = " << _pairSize << std::endl;
             while (_pairSize >= 1)
             {
                 // std::cout << "r = " << _pairSize << " size = " <<lst.size() << std::endl;
                 if (f == 0 && _pairSize * 3 > lst.size()) // revoir caaa
                 {
+					std::cout << "dishes " << std::endl;
                     // std::cout << "r = " << _pairSize << " et on a passe" << std::endl;
                     _pairSize /= 2; //pour le premier on est a 8
                     // f = 1;
@@ -400,7 +428,7 @@ class PmergeMe {
         }
 
 
-        template <typename T> 
+        template <typename T>
         void printPair(const T &lst) // surement a supprimer a la fin
         {
             std::cout << "container de pair:";
