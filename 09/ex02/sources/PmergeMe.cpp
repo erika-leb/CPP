@@ -3,12 +3,10 @@
 PmergeMe::PmergeMe()
 {
 }
-
 PmergeMe::PmergeMe(char **av)
 {
     long n;
     std::vector< std::pair<int, std::pair<char, int> > > lst;
-    // std::string d;
     int i = 1;
     while (av[i])
     {
@@ -17,7 +15,6 @@ PmergeMe::PmergeMe(char **av)
         {
             if (!(av[i][j] >= '0' && av[i][j] <= '9'))
                 throw std::invalid_argument("invalid argument");
-            // d = av[i];
             j++;
         }
         n = std::strtol(av[i], NULL, 10);
@@ -49,16 +46,19 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src)
     return (*this);
 }
 
-void PmergeMe::sort()
+void PmergeMe::sort(int n)
 {
-    //     algoSort(_vect);
-    //     algoSort(_deq);
-    pairing(_vect); //faudra faire pareil avec l'autre liste
-    mergeInsert(_vect);
-    pairing(_deq);
-    mergeInsert(_deq);
-    // moveBloc(_deq, 1, 1, 0);
-    // moveBloc(_deq, 4, 5, 0);
+	if (n == 1)
+	{
+    	pairing(_vect);
+    	mergeInsert(_vect);
+	}
+    else
+	{
+		pairing(_deq);
+    	mergeInsert(_deq);
+	}
+
 }
 
 int PmergeMe::jacobNb(int n)
@@ -75,39 +75,25 @@ void PmergeMe::print(int n) const
 {
     if (n == 1)
     {
-        std::cout << "Before:" << std::endl;
-        std::cout << "vector: ";
+        std::cout << "Before:  " ;
         for (std::vector< std::pair<int, std::pair<char, int> > >::const_iterator it = _vect.begin(); it != _vect.end(); ++it)
             std::cout << it->first << " ";
         std::cout << std::endl;
-        std::cout << "deque: ";
-        for (std::deque< std::pair<int, std::pair<char, int> > >::const_iterator it = _deq.begin(); it != _deq.end(); ++it)
-            std::cout << it->first << " ";
-        std::cout << std::endl;
+        // std::cout << "deque: ";
+        // for (std::deque< std::pair<int, std::pair<char, int> > >::const_iterator it = _deq.begin(); it != _deq.end(); ++it)
+        //     std::cout << it->first << " ";
+        // std::cout << std::endl;
     }
     if (n == 2)
     {
-        std::cout << "After:" << std::endl;
-        std::cout << "vector: ";
+        std::cout << "After:  " ;
         for (std::vector<std::pair<int, std::pair<char, int> > >::const_iterator it = _vect.begin(); it != _vect.end(); ++it)
             std::cout << it->first << " ";
         std::cout << std::endl;
-        std::cout << "deque: ";
-        for (std::deque<std::pair<int, std::pair<char, int> > >::const_iterator it = _deq.begin(); it != _deq.end(); ++it)
-            std::cout << it->first << " ";
-        std::cout << std::endl;
-    }
-    if (n == 3)
-    {
-        std::cout << "debeug:" << std::endl;
-        // std::cout << "vector: ";
-        // for (std::vector   <int>::const_iterator it = _vect.begin(); it != _vect.end(); ++it)
-        //     std::cout << *it << " ";
+        // std::cout << "deque: ";
+        // for (std::deque<std::pair<int, std::pair<char, int> > >::const_iterator it = _deq.begin(); it != _deq.end(); ++it)
+        //     std::cout << it->first << " ";
         // std::cout << std::endl;
-        std::cout << "deque: ";
-        for (std::deque< std::pair<int, std::pair<char, int> > >::const_iterator it = _deq.begin(); it != _deq.end(); ++it)
-            std::cout << it->first << " ";
-        std::cout << std::endl;
     }
     else
         return;
